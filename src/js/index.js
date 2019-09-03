@@ -6,8 +6,11 @@ const api_key = 'ba8159941b16e12958a2898e29ca82b1';
 const resultsContainer = $('#results-container');
 const totalResults = $('#totalresults');
 const castContainer = $('#castcontainer');
+const peoplePerson = $('#peopleperson');
+const imagebase = 'https://image.tmdb.org/t/p/w200/';
 
-const containers = [resultsContainer, totalResults, castContainer];
+
+const containers = [resultsContainer, totalResults, castContainer, peoplePerson];
 
 $(document).ready(function ($) {
     $('#search').keyup(function () {
@@ -56,6 +59,7 @@ function searchResults(data) {
     $('.movie-title').on('click', function () {
         $('.movie-title-container').removeClass('movie-list-selected');
         castContainer.html('');
+        peoplePerson.html('');
         $(this).parent('li').addClass('movie-list-selected');
         getCredits($(this).data('movieid'));
     });
@@ -97,14 +101,21 @@ function getPerson(personid) {
         api_key +
         '',
         function (persondata, status) {
+            peoplePerson.html('');
             console.log(persondata);
             console.log(status);
-            if (persondata.deathday) {
-                alert('dead - ' + persondata.deathday);
-                //var life = '<span class="badge badge-danger">dead</span>';
-            } else {
-                alert('alive probably');
+            peoplePerson.append('<h5>' + persondata.name + '</h5>');
+            peoplePerson.append('<span class="image"><img src="' + imagebase + persondata.profile_path + '"></span>');
+            if(persondata.place_of_birth){
+                peoplePerson.append('<span class="muted d-block">from ' + persondata.place_of_birth + '</span>');  
             }
+            peoplePerson.append('<span class="born-date d-block">Born: ' + persondata.birthday + ' </span>');
+            if(persondata.deathday){
+                peoplePerson.append('<span class="dead-date d-block">Died: ' + persondata.deathday + ' </span>');
+            }       
+            
+            
+
         }
     );
 }
