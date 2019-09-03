@@ -30,6 +30,7 @@ $(document).ready(function ($) {
             $('.totalresults-container').removeClass('d-flex');
             $('.totalresults-container').addClass('d-none');
             resultsContainer.html('');
+            resetElements(containers);
       }
     });
 });
