@@ -11,26 +11,31 @@
     <script src="js/app.js"></script>
     <link rel="stylesheet" href="css/site.css">
 </head>
-<body>
-    <%= htmlWebpackPlugin.options.nav %>   
+<body class="bg-light">   
       <!-- Page Content -->
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
-            <h1 class="mt-5">Search</h1>
+            <h1 class="h2 mt-5">Cast Casket</h1>
+            <p class="lead">search tv shows and movies and see who is dead or alive</p>
             <input type="text" id="search">
           </div>
         </div>
         <div class="row">
-          <div id="totalresults"></div>
-          <div id="results-container">
+            <h4 class="totalresults-container d-none justify-content-between align-items-center mb-3">
+                <span class="text-muted">Results</span>
+                <span id="totalresults" class="badge badge-secondary badge-pill"></span>
+              </h4>
+        </div>
+        <div class="row">
+          <ul id="results-container" class="col-6 list-group">
 
-          </div>
-          <div id="castcontainer">
-            
-          </div>
+          </ul>
+          <ul id="castcontainer" class="col-6 list-group">
+
+            </ul>
         </div>
       </div>
-     
+      <%= htmlWebpackPlugin.options.footer %>
 </body>
 </html>

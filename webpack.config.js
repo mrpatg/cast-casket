@@ -8,7 +8,7 @@ const PreloadWebpackPlugin = require('preload-webpack-plugin');
 const CssUrlRelativePlugin = require('css-url-relative-plugin');
 const glob = require('glob');
 var fs = require('fs');
-const nav = fs.readFileSync(__dirname + '\\src\\nav.html');
+const footer = fs.readFileSync(__dirname + '\\src\\footer.html');
 
 const IS_DEV = process.env.NODE_ENV === 'dev';
 
@@ -135,7 +135,7 @@ files.forEach(file => {
     new HtmlWebPackPlugin({
       filename: path.basename(file),
       template: file,
-      nav: nav,
+      footer: footer,
       favicon: path.resolve(__dirname, './src/public/icon.ico'),
       minify: !IS_DEV,
     })

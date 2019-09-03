@@ -1,3 +1,24 @@
-@import './carousel.css';
-
-// Your customize CSS
+.lead{
+    font-size: 1.25rem;
+    font-weight: 300;
+}
+html, body {
+    height: 100%;
+  }
+  
+  .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+  }
+  .movie-list-selected{
+    background-color:#e6e6e6;
+  }
+  .dead{
+      background:#f00;
+  }
+  .alive{
+    background:#a1efa1;
+  }

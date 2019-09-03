@@ -26,6 +26,11 @@ $(document).ready(function ($) {
                 }
             );
         }
+        if( !$('#search').val() ) {
+            $('.totalresults-container').removeClass('d-flex');
+            $('.totalresults-container').addClass('d-none');
+            resultsContainer.html('');
+      }
     });
 });
 
@@ -37,17 +42,20 @@ function searchResults(data) {
     console.log(data.results);
     $.each(data.results, function (index, value) {
         resultsContainer.append(
-            '<p><a href="#" class="movie-title" data-movieid="' +
+            '<li class="list-group-item movie-title-container d-flex justify-content-between lh-condensed"><span class="movie-title" data-movieid="' +
             value.id +
             '">' +
             value.title +
-            '</a></p>'
+            '</span></li>'
         );
     });
-
+    $('.totalresults-container').removeClass('d-none');
+    $('.totalresults-container').addClass('d-flex');
     totalResults.append(num_results);
     $('.movie-title').on('click', function () {
+        $('.movie-title-container').removeClass('movie-list-selected');
         castContainer.html('');
+        $(this).parent('li').addClass('movie-list-selected');
         getCredits($(this).data('movieid'));
     });
 }
@@ -64,13 +72,13 @@ function getCredits(movieid) {
             console.log(status);
             $.each(moviedata.cast, function (index, castvalue) {
                 castContainer.append(
-                    '<p><a href="#" class="person" data-personid="' +
+                    '<li class="list-group-item movie-title-container d-flex justify-content-between lh-condensed"><span class="person" data-personid="' +
                     castvalue.id +
                     '">' +
                     castvalue.character +
                     ' - ' +
                     castvalue.name +
-                    '</a></p>'
+                    '</span></li>'
                 );
             });
             $('.person').on('click', function () {
