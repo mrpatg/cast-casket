@@ -21,14 +21,14 @@ $(document).ready(function($) {
         let query = $("#search").val();
         if (query.length > 3) {
             $.get(
-                "https://api.themoviedb.org/3/search/movie?api_key=" +
+                "https://api.themoviedb.org/3/search/multi?api_key=" +
                     api_key +
                     "&language=en-US&query=" +
                     query +
                     "&page=1&include_adult=false",
                 function(data, status) {
                     console.log(data);
-                    console.log(status);
+                    //console.log(status);
                     searchResults(data);
                 }
             );
@@ -47,34 +47,52 @@ function searchResults(data) {
 
     let num_results = data.total_results;
 
-    console.log(data.results);
+    //console.log(data.results);
     $.each(data.results, function(index, value) {
+        if(value.name){
+            var title = value.name;
+        }else{
+            var title = value.title;
+        }
+        if(value.media_type == 'tv'){
+            var mediabadge = 'dark';
+        }else if(value.media_type == 'movie'){
+            var mediabadge = 'info';
+        }else if(value.media_type == 'person'){
+            var mediabadge = 'primary';
+        }else{
+            var mediabadge = 'danger';
+        }
         resultsContainer.append(
-            '<li class="list-group-item movie-title-container d-flex justify-content-between lh-condensed"><span class="movie-title" data-movieid="' +
+            '<li class="list-group-item movie-title-container d-flex justify-content-between lh-condensed"><span class="title" data-type="' + value.media_type + '" data-elementid="' +
                 value.id +
                 '">' +
-                value.title +
-                "</span></li>"
+                title +
+                '<span class="media-type badge badge-' + mediabadge + '">' +
+                value.media_type +
+                "</span></span></li>"
         );
     });
     $(".totalresults-container").removeClass("d-none");
     $(".totalresults-container").addClass("d-flex");
     totalResults.append(num_results);
-    $(".movie-title").on("click", function() {
-        $(".movie-title-container").removeClass("movie-list-selected");
+    $(".title").on("click", function() {
+        $(".title-container").removeClass("list-selected");
         castContainer.html("");
         peoplePerson.html("");
         $(this)
             .parent("li")
-            .addClass("movie-list-selected");
-        getCredits($(this).data("movieid"));
+            .addClass("list-selected");
+        getCredits($(this).data("elementid"), $(this).data("type"));
     });
 }
 
-function getCredits(movieid) {
+function getCredits(elementid, type) {
     $.get(
-        "https://api.themoviedb.org/3/movie/" +
-            movieid +
+        "https://api.themoviedb.org/3/" +
+            type +
+            "/" +
+            elementid +
             "/credits?api_key=" +
             api_key +
             "",

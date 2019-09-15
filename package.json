@@ -55,16 +55,13 @@
     "webpack-dev-server": "^3.7.2"
   },
   "husky": {
-    "hooks": {
-    }
+    "hooks": {}
   },
   "lint-staged": {
     "package.json": [
       "prettier-package-json --write",
       "git add"
     ],
-    "*.js": [
-
-    ]
+    "*.js": []
   }
 }
