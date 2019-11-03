@@ -9,6 +9,7 @@ const CssUrlRelativePlugin = require('css-url-relative-plugin');
 const glob = require('glob');
 var fs = require('fs');
 const footer = fs.readFileSync(__dirname + '\\src\\footer.html');
+const CnameWebpackPlugin = require('cname-webpack-plugin');
 
 const IS_DEV = process.env.NODE_ENV === 'dev';
 
@@ -97,6 +98,9 @@ const config = {
       include: 'initial',
     }),
     new CssUrlRelativePlugin(),
+    new CnameWebpackPlugin({
+      domain: 'castcasket.com',
+    }),
   ],
   devServer: {
     contentBase: path.join(__dirname, 'src'),
