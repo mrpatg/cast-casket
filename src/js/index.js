@@ -93,6 +93,9 @@ function getCredits(movieid) {
                 );
             });
             $(".person").on("click", function() {
+                $(this).parent().siblings().removeClass('bg-danger' );
+                $(this).parent().addClass('bg-danger' );
+
                 getPerson($(this).data("personid"));
             });
         }
